@@ -2,6 +2,7 @@ package com.example.Todo_app.Controller;
 
 import com.example.Todo_app.model.Todo;
 import com.example.Todo_app.service.Service;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,25 +18,26 @@ public class Controller {
     }
 
     @GetMapping("/todos")
-    public List<Todo> getTodos(){
+    public ResponseEntity<List<Todo>> getTodos(){
         return service.getTodos();
     }
 
     @PostMapping("/todoNew")
-    public String addTodo(@RequestBody Todo todoItems){
+    public ResponseEntity<String> addTodo(@RequestBody Todo todoItems){
         service.addTodo(todoItems);
-        return "added new todo";
+        return ResponseEntity.ok("added new todo");
     }
 
     @PostMapping("/todoDelete/{id}")
-    public String delete(@PathVariable long id){
+    public ResponseEntity<String> delete(@PathVariable long id){
         service.delete(id);
-        return "deleted todo";
+        return ResponseEntity.ok("deleted todo");
     }
 
     @PostMapping("/todoUpdate/{id}")
-    public String update(@PathVariable long id){
-        return "updated";
+    public ResponseEntity<String> update(@PathVariable long id){
+        service.update(id);
+        return ResponseEntity.ok("updated todo");
     }
 
 }
