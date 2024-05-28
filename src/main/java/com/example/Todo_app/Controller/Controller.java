@@ -1,6 +1,8 @@
 package com.example.Todo_app.Controller;
 
 import com.example.Todo_app.model.Todo;
+import com.example.Todo_app.model.User;
+import com.example.Todo_app.response.Response;
 import com.example.Todo_app.service.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,16 @@ public class Controller {
     public ResponseEntity<String> update(@PathVariable long id){
         service.update(id);
         return ResponseEntity.ok("updated todo");
+    }
+
+    @PostMapping("/register")
+    public Response register(@RequestBody User user){
+        return service.registerUser(user);
+    }
+
+    @GetMapping("/login")
+    public Response login(@RequestBody User user){
+        return service.validateLogin(user);
     }
 
 }

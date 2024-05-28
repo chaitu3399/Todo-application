@@ -1,4 +1,4 @@
-package com.example.Todo_app.exceptions;
+package com.example.Todo_app.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @AllArgsConstructor
-public class TodoException {
+public class Response {
     private final String message;
     private final HttpStatus httpStatus;
     private final ZonedDateTime zonedDateTime;
