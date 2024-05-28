@@ -17,21 +17,19 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/gettodos")
     public ResponseEntity<List<Todo>> getTodos(){
         return service.getTodos();
     }
 
     @PostMapping("/todoNew")
     public ResponseEntity<String> addTodo(@RequestBody Todo todoItems){
-        service.addTodo(todoItems);
-        return ResponseEntity.ok("added new todo");
+        return service.addTodo(todoItems);
     }
 
     @PostMapping("/todoDelete/{id}")
     public ResponseEntity<String> delete(@PathVariable long id){
-        service.delete(id);
-        return ResponseEntity.ok("deleted todo");
+        return service.delete(id);
     }
 
     @PostMapping("/todoUpdate/{id}")
