@@ -31,25 +31,28 @@ public class Service {
         return ResponseEntity.ok(todoRepository.findAll());
     }
 
-    public ResponseEntity<String> addTodo(Todo todoItems) {
+    public Response addTodo(Todo todoItems) {
         todoRepository.save(todoItems);
-        return ResponseEntity.ok("Added Todo successfully");
+        return new Response("Added Todo successfully", HttpStatus.OK, ZonedDateTime.now());
     }
 
-    public ResponseEntity<String> delete(long id) {
+    public Object delete(long id) {
         Optional<Todo> todo = todoRepository.findById(id);
         if (todo.isEmpty()){
-            throw new TodoNotFoundException("Not found todo", id);
+            return new TodoNotFoundException("Not found todo", id);
         }
         todoRepository.deleteById(id);
-        return ResponseEntity.ok("Deleted todo successfully");
+        return new Response("Deleted todo successfully", HttpStatus.OK, ZonedDateTime.now());
     }
 
-    public void update(long id) {
+    public Object update(long id) {
         Optional<Todo> todo = todoRepository.findById(id);
-        Todo todoClass = new Todo();
         if (todo.isPresent()){
-            todoClass.setCompleted(!todoClass.isCompleted());
+            Todo todo1 = todo.get();
+            boolean completed = todo.get().isCompleted();
+            todo1.setCompleted(!completed);
+            todoRepository.updateCompleted(todo1.isCompleted(), id);
+            return new Response("Todo updated successfully", HttpStatus.OK, ZonedDateTime.now());
         }
         else {
             throw new TodoNotFoundException("todo not found", id);

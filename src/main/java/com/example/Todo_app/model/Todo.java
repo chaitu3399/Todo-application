@@ -10,7 +10,6 @@ import lombok.Setter;
 
 @Entity
 @Data
-@Getter
 public class Todo {
 
     @Id
